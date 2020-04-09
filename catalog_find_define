@@ -1,0 +1,12 @@
+#!/bin/bash
+# Use the output of checkdefines.php as input 
+# Run FROM top level of current dev folder
+if [ "$1" == "" ]; then
+   echo "syntax: $0 <newdir>";
+   exit 1
+fi
+for i in `cat $1`; 
+do 
+  grep -l -s $i `find . -type f` 1>/dev/null; 
+  if [ $? -ne 0 ]; then  echo $i; fi; 
+done

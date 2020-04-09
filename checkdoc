@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# Look for anti-patterns in content and report them so they can be fixed
+#
+cd /Users/scott/github_files/zencart_documentation/content
+echo "*** Checking for references to old FAQs" 
+for i in `find . -name \*.md`
+do
+  if [ $i == "./user/miscellaneous/legacy.md" ]; then continue; fi
+  grep content.php $i | grep -v "Payment-Processing" | grep -v "Services" 
+done 
+
+echo "*** Checking for references to old articles" 
+for i in `find . -name \*.md`
+do
+  grep "article=" $i
+done 
+
+echo "*** Looking for CUSTOM, YOUR_, <YOUR etc" 
+for i in `find . -name \*.md`
+do
+  if [ $i == "./user/first_steps/basic_terms.md" -o $i == "./user/template/template_overrides.md" ] 
+  then
+    continue; 
+  fi
+  grep CUSTOM $i | grep -v CUSTOMER | grep -v CUSTOMIZATIONS | grep -v CUSTOMIZE
+  grep your_ $i 
+  grep YOUR_TEMPLATE $i 
+  grep YOUT $i | grep -v LAYOUT 
+  grep "<YOUR" $i 
+done 
+
+echo "*** Looking for legacy wiki" 
+for i in `find . -name \*.md`
+do
+  if [ $i == "./user/miscellaneous/legacy.md" ]; then continue; fi
+  grep -l "/wiki/index.php" $i 
+done 
+
+echo "*** Looking for use of upper case folder name" 
+for i in `find . -name \*.md`
+do
+  grep -l "/user/[A-Z]" $i
+done 
+
+echo "*** Looking for accidental inclusion of .md in link" 
+for i in `find . -name \*.md`
+do
+  grep -l "[a-z].md)" $i 
+done 
+
+echo "*** Looking for accidental inclusion of full docs path in link" 
+for i in `find . -name \*.md`
+do
+  if [ $i == "./user/all_time_favorites/_index.md" ]; then continue; fi
+  grep -l "https://docs.zen-cart.com/" $i
+done 
+
+echo "*** Looking for old markup" 
+for i in `find . -name \*.md`
+do
+  grep -l 'mw-headline'  $i
+done 
+
+echo "*** Looking for unbolded NOTE, HINT" 
+grep NOTE `find . -name \*.md`  | grep -v "admin_pages" | grep -v "/old/" | grep -v "/v2/" | grep -v "\*\*NOTE" | grep -v "IMPORTANT NOTE" | grep -v "// NOTE"
+grep HINT `find . -name \*.md`  | grep -v "/old/" | grep -v "/v2/" | grep -v "\*\*HINT" | grep -v "HINT\*\*" 
+
+echo "*** Looking for non .md files"
+find . -type f | grep -v ".md" | grep -v "./_index.html" | grep -v "developers_read_me.txt" | grep -v ".jpg" | grep -v ".gif" | grep -v ".png" 
+
+echo "*** Looking for /catalog" 
+grep "/catalog/" `find . -name \*.md` | grep -v "/Admin_Pages"  | grep -v "/admin_pages/" | grep -v "how_do_i_install.md"
+
+echo "*** Looking for bad cross links"
+grep "\[.*\](.*)" `find user dev -name \*.md` | grep -v "(/" | grep -v "(http" | grep -v "(HTTP" | grep  -v "johndoe" 
+
+echo "*** Looking for http links to zen-cart.com"
+grep "http://www.zen-cart.com" `find . -name \*.md` 
+grep "http://docs.zen-cart.com" `find . -name \*.md` 
+
+echo "*** Looking for trademark misspellings " 
+# NOTE: DO NOT add MySQL - too many defines use this string 
+for i in 'phpMyAdmin' 'Apache' 'cPanel'
+do 
+  grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i
+done 
