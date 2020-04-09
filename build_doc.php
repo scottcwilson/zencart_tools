@@ -31,6 +31,10 @@ function build_config($folder, $name, $params, $weight) {
   $fp = fopen($folder . $file, "w");  
   write_md_header($fp, "Configuration", $name, $weight);
   fwrite($fp, PHP_EOL); 
+  $extra = get_header_extra($lowername); 
+  if (!empty($extra)) {
+     fwrite($fp, $extra . PHP_EOL . PHP_EOL); 
+  }
   while(!$list->EOF) { 
 
     // Double check no unexpected HTML 
@@ -40,6 +44,9 @@ function build_config($folder, $name, $params, $weight) {
         // We know aobut these ones and handle them already 
       case 'DOWN_FOR_MAINTENANCE': 
       case 'DOWNLOADS_CONTROLLER_ORDERS_STATUS_END': 
+      case 'EMP_LOGIN_ADMIN_ID': 
+      case 'EMP_LOGIN_AUTOMATIC':
+      case 'EMP_LOGIN_ADMIN_PROFILE_ID': 
         break; 
       default: 
        echo "*** Mismatch " . $list->fields['configuration_title'] . "<br />"; 
@@ -48,6 +55,7 @@ function build_config($folder, $name, $params, $weight) {
 
     // Now output
     $title = doc_strip_tags($list->fields['configuration_title']); 
+    fix_data($lowername, $list->fields['configuration_title'],  $list->fields['configuration_description']); 
     fwrite($fp, '<h2 id="' . id_smash($title) . '">' . $title . '</h2>' . PHP_EOL . PHP_EOL); 
     $content = get_extra_content($lowername, $list->fields['configuration_title']); 
     if (empty($list->fields['configuration_description'])) {
@@ -105,9 +113,22 @@ function get_extra_content($lowername, $configuration_title) {
   }
   return $content;
 }
+function fix_data($lowername, &$configuration_title,  &$configuration_description) {
+  if ($lowername == "ezpagessettings") {
+    $configuration_description = str_replace("Admin->Tools", "Admin > Tools", $configuration_description); 
+  }
+}
 
 function doc_strip_tags($title) {
   $title = str_replace('<strong>','',$title); 
   $title = str_replace('</strong>','',$title); 
   return $title;
+}
+
+function get_header_extra($lowername) {
+  $extra = ""; 
+  if ($lowername == "shippingpackaging") { 
+    $extra = 'See also <a href="/user/shipping/">Shipping</a>.'; 
+  }
+  return $extra; 
 }
