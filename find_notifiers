@@ -1,0 +1,2 @@
+#!/bin/bash
+grep notify `fp` | grep NOTIF | sed "s/notify[ ]*(/notify(/" | sed "s/.*->notify('//" | sed "s/',.*$//"  | sed "s/');//" | grep -v zen_ | grep -v "includes/" | sed "s/^M//" | sort | uniq 

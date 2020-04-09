@@ -13,3 +13,5 @@ The `checkdefines.php` script can be run from the admin_folder or the top level 
 ### catalog\_find\_define
 The `catalog_find_define` script can be run on the output of `admin/checkdefines.php` to verify that a define which is not used in admin is also not used on the catalog side. 
 
+### find\_notifiers
+Builds the list of notifiers for /dev/code/notifiers_list.md
