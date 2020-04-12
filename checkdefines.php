@@ -93,6 +93,9 @@ function get_all_keys($query, $key) {
 function catalog_known_good_list() {
   return array(
     'TEXT_GV_NAMES', 
+    'MODULE_PAYMENT_PAYPAL_MARK_BUTTON_IMG', 
+    'MODULE_PAYMENT_PAYPAL_MARK_BUTTON_ALT',
+    'MODULE_PAYMENT_PAYPAL_ACCEPTANCE_MARK_TEXT', 
   );
 }
 
