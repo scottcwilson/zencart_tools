@@ -7,12 +7,14 @@ if (IS_ADMIN_FLAG) {
   $files= getfiles("includes/languages"); 
   $skip_list = array("includes/languages/english.php"); 
 } else {
+  $files= getfiles("includes/languages"); 
   $skip_list = array("includes/languages/english.php"); 
   // Pull in all catalog files 
 }
 
 foreach ($files as $file) {
   if (in_array($file, $skip_list)) continue; 
+  if (strpos($file, "html_includes") !== false) continue; 
   require($file); 
 }
 
@@ -26,18 +28,27 @@ if (IS_ADMIN_FLAG) {
 echo "<br />";
 
 $db_keys = get_db_keys(); 
+if (!IS_ADMIN_FLAG) { 
+  chdir("includes"); 
+}
+$admin_kgl = admin_known_good_list(); 
+$catalog_kgl = catalog_known_good_list(); 
 foreach ($list['user'] as $key => $value) {
   if (in_array($key, $db_keys)) continue; 
-  if (in_array($key, $known_good_list)) continue; 
+  if (IS_ADMIN_FLAG) { 
+     if (in_array($key, $admin_kgl)) continue; 
+  }
+  if (in_array($key, $catalog_kgl)) continue; 
   if (strpos($key, 'TEXT_MAX_ADMIN_') === 0) continue; 
   if (strpos($key, 'TEXT_MIN_ADMIN_') === 0) continue; 
+  if (strpos($key, 'TEXT_CC_ENABLED') === 0) continue; 
   $parts = explode("_", $key); 
   if (!empty($parts[0])) {
     if ($parts[0] == "FILENAME") continue; 
     if ($parts[0] == "TABLE") continue; 
   }
   $rc = 0;
-  system('grep -l ' . $key . ' `find . -type f` | grep -s -v "includes/languages/" 1>/dev/null 2>/dev/null', $rc); 
+  system('grep -l ' . $key . ' `find . -type f -not -iwholename "*.git*"` | grep -s -v "/languages/" 1>/dev/null 2>/dev/null', $rc); 
   if ($rc != 0) {
      echo $key . "<br />"; 
   }
@@ -74,9 +85,32 @@ function get_all_keys($query, $key) {
   return $keys; 
 }
 
-function known_good_list() {
-  // Defined on storefront side 
+// Why known good lists? Some constants are: 
+// - used in admin but defined on storefront side, 
+// - required by plugins 
+// - used by install
+// - used to "build" other defines (and thus not used outside language files)
+function catalog_known_good_list() {
   return array(
+    'TEXT_GV_NAMES', 
+  );
+}
+
+function admin_known_good_list() {
+  return array(
+    'EMAIL_ORDER_UPDATE_MESSAGE', 
+    'OTHER_IMAGE_CUSTOMERS_AUTHORIZATION_ALT', 
+    'OTHER_REVIEWS_RATING_STARS_FIVE_ALT',
+    'OTHER_REVIEWS_RATING_STARS_FOUR_ALT',
+    'OTHER_REVIEWS_RATING_STARS_THREE_ALT',
+    'OTHER_REVIEWS_RATING_STARS_TWO_ALT',
+    'OTHER_REVIEWS_RATING_STARS_ONE_ALT',
+    'TEXT_EMAIL_ADDRESS_VALIDATE', 
+    'TEXT_CALL_FOR_PRICE', 
+    'TEXT_MAX_PREVIEW', 
+    'ERROR_GV_AMOUNT', 
+    'TABLE_HEADING_VOUCHER_CODE', 
+    'PHP_DATE_TIME_FORMAT', 
     'TEXT_GV_NAME', 
     'TEXT_GV_NAMES', 
     'EMAIL_LOGO_FILENAME',
@@ -86,8 +120,6 @@ function known_good_list() {
 
     'OFFICE_FROM',
     'OFFICE_EMAIL',
-    'OFFICE_SENT_TO',
-    'OFFICE_EMAIL_TO',
     'OFFICE_USE',
     'OFFICE_LOGIN_NAME',
     'OFFICE_LOGIN_EMAIL',
@@ -96,6 +128,7 @@ function known_good_list() {
     'OFFICE_HOST_ADDRESS',
     'OFFICE_DATE_TIME',
 
+    /* Required by SQL */
     'BOX_HEADING_CONFIGURATION',
     'BOX_HEADING_MODULES',
     'BOX_HEADING_CUSTOMERS',
@@ -149,7 +182,6 @@ function known_good_list() {
     'OTHER_BOX_NOTIFY_REMOVE_ALT',
     'OTHER_BOX_NOTIFY_YES_ALT',
     'OTHER_BOX_WRITE_REVIEW_ALT',
-    'OTHER_CALL_FOR_PRICE_ALT',
     'OTHER_DOWN_FOR_MAINTENANCE_ALT', 
     'WARNING_COULD_NOT_LOCATE_LANG_FILE', 
     'ERROR_MODULE_REMOVAL_PROHIBITED', 

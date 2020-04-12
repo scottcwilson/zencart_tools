@@ -7,6 +7,6 @@ if [ "$1" == "" ]; then
 fi
 for i in `cat $1`; 
 do 
-  grep -l -s $i `find . -type f` 1>/dev/null; 
+  grep -l -s $i `find . -type f -not -iwholename '*.git*'`  | grep -v "/languages/"  1>/dev/null; 
   if [ $? -ne 0 ]; then  echo $i; fi; 
 done
