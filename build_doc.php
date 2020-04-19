@@ -11,6 +11,8 @@ echo "</pre>";
 // for config gid 1
 define('TARGET_FOLDER','/Users/scott/github_files/zencart_documentation/content/user/admin_pages/configuration/'); 
 // define('TARGET_FOLDER','/tmp/'); 
+define('CONFIG_MENU','Configuration'); 
+
 $weight = 10; 
 foreach ($data['configuration'] as $item) { 
    build_config(TARGET_FOLDER, $item['name'], $item['params'], $weight); 
@@ -29,7 +31,7 @@ function build_config($folder, $name, $params, $weight) {
 
   $list = $db->Execute("SELECT * FROM " . TABLE_CONFIGURATION . " WHERE configuration_group_id = " . $group_id . " ORDER BY sort_order"); 
   $fp = fopen($folder . $file, "w");  
-  write_md_header($fp, "Configuration", $name, $weight);
+  write_md_header($fp, CONFIG_MENU, $name, $weight);
   fwrite($fp, PHP_EOL); 
   $extra = get_header_extra($lowername); 
   if (!empty($extra)) {
@@ -62,11 +64,12 @@ function build_config($folder, $name, $params, $weight) {
        $list->fields['configuration_description'] = "Default value: " . $list->fields['configuration_value']; 
     }
     $key = "Key: " . "<b>" . $list->fields['configuration_key'] . "</b>" . "<br />" . PHP_EOL;
+    $path = "Path: " . "<b>" . CONFIG_MENU . " > " . $name  . "</b>" . "<br />" . PHP_EOL;
     $desc = "Description: " . $list->fields['configuration_description']; 
     if ($content == "") {
-      fwrite($fp, "<div class='indent'>" . $key . $desc .  "</div>" . PHP_EOL);
+      fwrite($fp, "<div class='indent'>" . $key . $path . $desc .  "</div>" . PHP_EOL);
     } else {
-      fwrite($fp, "<div class='indent'>" . $key . $desc . PHP_EOL);
+      fwrite($fp, "<div class='indent'>" . $key . $path . $desc . PHP_EOL);
       fwrite($fp, PHP_EOL); 
       fwrite($fp, $content . PHP_EOL); 
       fwrite($fp, "</div>" . PHP_EOL); 
