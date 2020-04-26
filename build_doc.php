@@ -134,6 +134,8 @@ function get_header_extra($lowername) {
     $extra = 'See also <a href="/user/shipping/">Shipping</a>.'; 
   } elseif ($lowername == "stock") { 
     $extra = 'The stock configuration settings control stock management as well as various things on the shopping cart page.'; 
+  } elseif ($lowername == "layoutsettings") { 
+    $extra = 'See also <a href="/user/admin_pages/catalog/product_types_edit_layout/">Admin &gt; Catalog &gt; Product Types &gt; Layout Settings</a> for product type specific layout settings.'; 
   }
   return $extra; 
 }
