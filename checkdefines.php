@@ -96,6 +96,7 @@ function catalog_known_good_list() {
     'MODULE_PAYMENT_PAYPAL_MARK_BUTTON_IMG', 
     'MODULE_PAYMENT_PAYPAL_MARK_BUTTON_ALT',
     'MODULE_PAYMENT_PAYPAL_ACCEPTANCE_MARK_TEXT', 
+    'TEXT_SEE_ORDERS', 
 
     // These are kept intentionally in case someone wants to use them.
     'MODULE_PAYMENT_AUTHORIZENET_TEXT_TYPE',
