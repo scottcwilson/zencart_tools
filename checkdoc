@@ -23,7 +23,7 @@ do
   then
     continue; 
   fi
-  grep CUSTOM $i | grep -v CUSTOMER | grep -v CUSTOMIZATIONS | grep -v CUSTOMIZE
+  grep CUSTOM $i | grep -v CUSTOMER | grep -v CUSTOMIZATIONS | grep -v CUSTOMIZE | grep -v CUSTOM_KEYWORDS
   grep your_ $i 
   grep YOUR_TEMPLATE $i 
   grep YOUT $i | grep -v LAYOUT 
@@ -83,5 +83,5 @@ echo "*** Looking for trademark misspellings "
 # NOTE: DO NOT add MySQL - too many defines use this string 
 for i in 'phpMyAdmin' 'Apache' 'cPanel'
 do 
-  grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i
+  grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i | grep -v "YOURSITE.com/cpanel"
 done 
