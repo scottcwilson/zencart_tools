@@ -19,7 +19,7 @@ done
 echo "*** Looking for CUSTOM, YOUR_, <YOUR etc" 
 for i in `find . -name \*.md`
 do
-  if [ $i == "./user/first_steps/basic_terms.md" -o $i == "./user/template/template_overrides.md" ] 
+  if [ $i == "./user/first_steps/basic_terms.md" -o $i == "./user/template/template_overrides.md" -o $i == "./dev/code/notifiers.md" ] 
   then
     continue; 
   fi
@@ -73,7 +73,7 @@ echo "*** Looking for /catalog"
 grep "/catalog/" `find . -name \*.md` | grep -v "/Admin_Pages"  | grep -v "/admin_pages/" | grep -v "how_do_i_install.md"
 
 echo "*** Looking for bad cross links"
-grep "\[.*\](.*)" `find user dev -name \*.md` | grep -v "(/" | grep -v "(http" | grep -v "(HTTP" | grep  -v "johndoe" 
+grep "\[.*\](.*)" `find user dev -name \*.md` | grep -v "(/" | grep -v "(#" | grep -v "(http" | grep -v "(HTTP" | grep  -v "johndoe" 
 
 echo "*** Looking for http links to zen-cart.com"
 grep "http://www.zen-cart.com" `find . -name \*.md` 
