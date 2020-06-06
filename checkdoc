@@ -85,3 +85,22 @@ for i in 'phpMyAdmin' 'Apache' 'cPanel'
 do 
   grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i | grep -v "YOURSITE.com/cpanel"
 done 
+
+echo "*** Checking for bulleted lists not preceded by a blank line"
+which pcregrep 1>/dev/null
+if [ $? -eq 1 ]
+then
+  echo "pcregrep not found - skipping test"
+else
+   for i in `find . -name \*.md`
+   do
+     if [[ $i == *"/schema/"* ]]; then
+       continue;
+     fi
+     pcregrep -Mc '^[A-Z][a-z].*\n- ' $i 1>/dev/null 
+     if [ $? -eq 0 ]
+     then
+       echo $i 
+     fi
+   done 
+fi
