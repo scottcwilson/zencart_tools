@@ -87,20 +87,16 @@ do
 done 
 
 echo "*** Checking for bulleted lists not preceded by a blank line"
-which pcregrep 1>/dev/null
-if [ $? -eq 1 ]
-then
-  echo "pcregrep not found - skipping test"
-else
-   for i in `find . -name \*.md`
-   do
-     if [[ $i == *"/schema/"* ]]; then
-       continue;
-     fi
-     pcregrep -Mc '^[A-Z][a-z].*\n- ' $i 1>/dev/null 
-     if [ $? -eq 0 ]
-     then
-       echo $i 
-     fi
-   done 
-fi
+for i in `find . -name \*.md`
+do
+  if [[ $i == *"/schema/"* ]]; then
+    continue;
+  fi
+  awk '/^- / {
+       if(lastLine != "" && lastLine !~/^- / && lastLine !~/^[ ]+- / && lastLine !~/^#/ && lastLine != "```") {
+         print FILENAME
+         exit
+       }
+     }
+     { lastLine = $0 }' $i 
+done 
