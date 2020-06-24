@@ -25,3 +25,15 @@ It is run from a shell window in top level of a new release.
 This script builds the [list of notifiers](https://docs.zen-cart.com/dev/code/notifiers_list/) you see in the [Zen Cart documentation](https://docs.zen-cart.com/).
 It is run from a shell window in top level of a new release.
 
+# Tasks to Do at Release Time
+- Search the documentation in https://github.com/zencart/documentation for the string RELEASETIME and update those files. 
+
+- Run the script build\_doc.php as noted above.
+
+- Install the View Schema mod and run it.
+https://www.zen-cart.com/downloads.php?do=file&id=2270
+Do an Inspect in Google Chrome on the output and copy the element
+with id="pageWrapper" into a new file in zencart_documentation/content/dev/schema.  Remove the opening and closing div tags. 
+
+
+
