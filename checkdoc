@@ -7,6 +7,7 @@ echo "*** Checking for references to old FAQs"
 for i in `find . -name \*.md`
 do
   if [ $i == "./user/miscellaneous/legacy.md" ]; then continue; fi
+  if [ $i == "./user/troubleshooting/reset_admin_password.md" ]; then continue; fi
   grep content.php $i | grep -v "Payment-Processing" | grep -v "Services" 
 done 
 
@@ -23,7 +24,7 @@ do
   then
     continue; 
   fi
-  grep CUSTOM $i | grep -v CUSTOMER | grep -v CUSTOMIZATIONS | grep -v CUSTOMIZE | grep -v CUSTOM_KEYWORDS
+  grep CUSTOM $i | grep -v CUSTOMER | grep -v CUSTOMAND | grep -v CUSTOMIZATIONS | grep -v CUSTOMIZE | grep -v CUSTOM_KEYWORDS
   grep your_ $i 
   grep YOUR_TEMPLATE $i 
   grep YOUT $i | grep -v LAYOUT 
