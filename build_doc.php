@@ -131,9 +131,9 @@ function doc_strip_tags($title) {
 function get_header_extra($lowername) {
   $extra = ""; 
   if ($lowername == "shippingpackaging") { 
-    $extra = 'See also <a href="/user/shipping/">Shipping</a>.'; 
+    $extra = 'See also <a href="/user/shipping/">Shipping</a> for more information on shipping calculations.'; 
   } else if ($lowername == "emailoptions") { 
-    $extra = 'See also <a href="/user/email/">Email</a>.'; 
+    $extra = 'See also <a href="/user/email/">Email</a> for more information on customizing your store\'s email.'; 
   } elseif ($lowername == "stock") { 
     $extra = 'The stock configuration settings control stock management as well as various things on the shopping cart page.'; 
   } elseif ($lowername == "layoutsettings") { 
