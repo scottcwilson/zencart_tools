@@ -43,7 +43,7 @@ function build_config($folder, $name, $params, $weight) {
     if (strip_tags($list->fields['configuration_title']) != 
       $list->fields['configuration_title'])  {
       switch ($list->fields['configuration_key']) {
-        // We know aobut these ones and handle them already 
+        // We know about these ones and handle them already 
       case 'DOWN_FOR_MAINTENANCE': 
       case 'DOWNLOADS_CONTROLLER_ORDERS_STATUS_END': 
       case 'EMP_LOGIN_ADMIN_ID': 
