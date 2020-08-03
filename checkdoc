@@ -63,6 +63,12 @@ do
   grep -l 'mw-headline'  $i
 done 
 
+echo "*** Looking for links to localhost" 
+for i in `find . -name \*.md`
+do
+  grep -l 'localhost:1313'  $i
+done 
+
 echo "*** Looking for unbolded NOTE, HINT" 
 grep NOTE `find . -name \*.md`  | grep -v "admin_pages" | grep -v "/old/" | grep -v "/v2/" | grep -v "\*\*NOTE" | grep -v "IMPORTANT NOTE" | grep -v "// NOTE"
 grep HINT `find . -name \*.md`  | grep -v "/old/" | grep -v "/v2/" | grep -v "\*\*HINT" | grep -v "HINT\*\*" 
