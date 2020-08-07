@@ -3,7 +3,7 @@
 # Look for anti-patterns in content and report them so they can be fixed
 #
 cd /Users/scott/github_files/zencart_documentation/content
-echo "*** Checking for references to old FAQs" 
+echo "*** Looking for references to old FAQs" 
 for i in `find . -name \*.md`
 do
   if [ $i == "./user/miscellaneous/legacy.md" ]; then continue; fi
@@ -11,7 +11,7 @@ do
   grep content.php $i | grep -v "Payment-Processing" | grep -v "Services" 
 done 
 
-echo "*** Checking for references to old articles" 
+echo "*** Looking for references to old articles" 
 for i in `find . -name \*.md`
 do
   grep "article=" $i
@@ -93,7 +93,7 @@ do
   grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i | grep -v "YOURSITE.com/cpanel"
 done 
 
-echo "*** Checking for bulleted lists not preceded by a blank line"
+echo "*** Looking for bulleted lists not preceded by a blank line"
 for i in `find . -name \*.md`
 do
   if [[ $i == *"/schema/"* ]]; then
