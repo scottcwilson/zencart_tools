@@ -90,7 +90,7 @@ echo "*** Looking for trademark misspellings "
 # NOTE: DO NOT add MySQL - too many defines use this string 
 for i in 'phpMyAdmin' 'Apache' 'cPanel'
 do 
-  grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i | grep -v "YOURSITE.com/cpanel"
+  grep -i $i `find dev user -name \*.md` | sed 's/'$i'//g'  | grep -i $i | grep -v "YOURSITE.com/cpanel" | grep -v "www.phpmyadmin" | grep -v "images/phpmyadmin" | grep -v "images/cpanel" 
 done 
 
 echo "*** Looking for bulleted lists not preceded by a blank line"
