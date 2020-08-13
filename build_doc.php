@@ -140,6 +140,8 @@ function get_header_extra($lowername) {
     $extra = 'See also <a href="/user/admin_pages/catalog/product_types_edit_layout/">Admin &gt; Catalog &gt; Product Types &gt; Layout Settings</a> for product type specific layout settings.'; 
   } elseif ($lowername == "attributesettings") { 
     $extra = 'See also <a href="/user/admin_pages/catalog/attribute_controller/">Admin &gt; Catalog &gt; Attributes Controller</a> for attribute pricing settings.'; 
+  } elseif ($lowername == "definepagestatus") { 
+    $extra = 'See <a href="/user/template/define_pages/">Define Pages</a> for instructions on use.'; 
   }
   return $extra; 
 }
