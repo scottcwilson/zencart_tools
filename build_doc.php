@@ -140,6 +140,12 @@ function get_header_extra($lowername) {
     $extra = 'See also <a href="/user/admin_pages/catalog/product_types_edit_layout/">Admin &gt; Catalog &gt; Product Types &gt; Layout Settings</a> for product type specific layout settings.'; 
   } elseif ($lowername == "attributesettings") { 
     $extra = 'See also <a href="/user/admin_pages/catalog/attribute_controller/">Admin &gt; Catalog &gt; Attributes Controller</a> for attribute pricing settings.'; 
+  } elseif ($lowername == "newlisting") { 
+    $extra = 'See <a href="/user/template/new_featured_all_listing_page_configuration/">New Listing Configuration</a> for instructions on use.'; 
+  } elseif ($lowername == "alllisting") { 
+    $extra = 'See <a href="/user/template/new_featured_all_listing_page_configuration/">All Listing Configuration</a> for instructions on use.'; 
+  } elseif ($lowername == "featuredlisting") { 
+    $extra = 'See <a href="/user/template/new_featured_all_listing_page_configuration/">Featured Listing Configuration</a> for instructions on use.'; 
   } elseif ($lowername == "definepagestatus") { 
     $extra = 'See <a href="/user/template/define_pages/">Define Pages</a> for instructions on use.'; 
   }
