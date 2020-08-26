@@ -7,6 +7,7 @@ echo "*** Looking for references to old FAQs"
 for i in `find . -name \*.md`
 do
   if [ $i == "./user/miscellaneous/legacy.md" ]; then continue; fi
+  if [ $i == "./user/payment/square.md" ]; then continue; fi
   if [ $i == "./user/troubleshooting/reset_admin_password.md" ]; then continue; fi
   grep content.php $i | grep -v "Payment-Processing" | grep -v "Services" 
 done 
@@ -74,7 +75,7 @@ grep NOTE `find . -name \*.md`  | grep -v "admin_pages" | grep -v "/old/" | grep
 grep HINT `find . -name \*.md`  | grep -v "/old/" | grep -v "/v2/" | grep -v "\*\*HINT" | grep -v "HINT\*\*" 
 
 echo "*** Looking for non .md files"
-find . -type f | grep -v ".md" | grep -v "./_index.html" | grep -v "developers_read_me.txt" | grep -v ".jpg" | grep -v ".gif" | grep -v ".png" 
+find . -type f | grep -v ".md" | grep -v "./_index.html" | grep -v "developers_read_me.txt" | grep -v ".jpg" | grep -v ".gif" | grep -v ".png"  | grep -v ".css" 
 
 echo "*** Looking for /catalog" 
 grep "/catalog/" `find . -name \*.md` | grep -v "/Admin_Pages"  | grep -v "/admin_pages/" | grep -v "how_do_i_install.md"
