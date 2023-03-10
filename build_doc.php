@@ -1,5 +1,10 @@
 <?php
-// Deploy this in gh_demo_157/admin, then run from browser.
+/*
+ Deploy this to unmodified admin folder from Github, then run from browser.
+ Additional Notes: 
+ - If a configuration entry has changed name (like Email Options -> Email in 1.5.8), you must update the old file (in this case, user/admin_pages/configuration/configuration_emailoptions.md) to point to the new file. 
+- If a configuration entry has added html, you must handle it - see DOWN_FOR_MAINTENANCE as an example.
+*/
 require('includes/application_top.php'); 
 $data = zen_get_admin_pages(true); 
 /*

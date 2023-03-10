@@ -7,7 +7,7 @@ This script looks for a bunch of anti-patterns in the content folder, so that th
 It is run from a shell window in `zencart_documentation/content`.
 
 ### build\_doc.php
-This script creates the [configuration documentation](https://docs.zen-cart.com/user/admin_pages/configuration/) component of the [Zen Cart configuration documentation](https://docs.zen-cart.com/).
+This script creates the [configuration documentation](https://docs.zen-cart.com/user/admin_pages/configuration/) component of the [Zen Cart docs site](https://docs.zen-cart.com/).
 
 It should be installed in the admin folder of a new release and run from a browser window.
 
