@@ -69,7 +69,7 @@ function build_config($folder, $name, $params, $weight) {
        $list->fields['configuration_description'] = "Default value: " . $list->fields['configuration_value']; 
     }
     $key = "Key: " . "<b>" . $list->fields['configuration_key'] . "</b>" . "<br />" . PHP_EOL;
-    $path = "Path: " . "<b>" . CONFIG_MENU . " > " . $name  . "</b>" . "<br />" . PHP_EOL;
+    $path = "Path: " . "<b>" . CONFIG_MENU . " ≫ " . $name  . "</b>" . "<br />" . PHP_EOL;
     $desc = "Description: " . $list->fields['configuration_description']; 
     if ($content == "") {
       fwrite($fp, "<div class='indent'>" . $key . $path . $desc .  "</div>" . PHP_EOL);
@@ -104,7 +104,7 @@ function id_smash($name) {
 
 function write_md_header($fp, $top_title, $name, $weight) {
   fwrite($fp, "---" . PHP_EOL); 
-  fwrite($fp, "title: " . $top_title . " > " . $name . PHP_EOL); 
+  fwrite($fp, "title: " . $top_title . " ≫ " . $name . PHP_EOL); 
   fwrite($fp, "category: admin_pages" . PHP_EOL); 
   fwrite($fp, "weight: " . $weight . " " . PHP_EOL); 
   fwrite($fp, "---" . PHP_EOL); 
@@ -123,7 +123,7 @@ function get_extra_content($lowername, $configuration_title) {
 }
 function fix_data($lowername, &$configuration_title,  &$configuration_description) {
   if ($lowername == "ezpagessettings") {
-    $configuration_description = str_replace("Admin->Tools", "Admin > Tools", $configuration_description); 
+    $configuration_description = str_replace("Admin->Tools", "Admin ≫ Tools", $configuration_description); 
   }
 }
 
@@ -142,9 +142,9 @@ function get_header_extra($lowername) {
   } elseif ($lowername == "stock") { 
     $extra = 'The stock configuration settings control stock management as well as various things on the shopping cart page.'; 
   } elseif ($lowername == "layoutsettings") { 
-    $extra = 'See also <a href="/user/admin_pages/catalog/product_types_edit_layout/">Admin &gt; Catalog &gt; Product Types &gt; Layout Settings</a> for product type specific layout settings.'; 
+    $extra = 'See also <a href="/user/admin_pages/catalog/product_types_edit_layout/">Admin ≫ Catalog ≫ Product Types ≫ Layout Settings</a> for product type specific layout settings.'; 
   } elseif ($lowername == "attributesettings") { 
-    $extra = 'See also <a href="/user/admin_pages/catalog/attribute_controller/">Admin &gt; Catalog &gt; Attributes Controller</a> for attribute pricing settings.'; 
+    $extra = 'See also <a href="/user/admin_pages/catalog/attribute_controller/">Admin ≫ Catalog ≫ Attributes Controller</a> for attribute pricing settings.'; 
   } elseif ($lowername == "newlisting") { 
     $extra = 'Controls the appearance of the New Products page.  See <a href="/user/template/new_featured_all_listing_page_configuration/">New Listing Configuration</a> for instructions on use.'; 
   } elseif ($lowername == "alllisting") { 
