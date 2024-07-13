@@ -30,7 +30,9 @@ echo "done";
 function build_config($folder, $name, $params, $weight) {
   global $db;
   $lowername = smash($name); 
+  $lowername = str_replace("'", "", $lowername); 
   $file = "configuration_" . $lowername . ".md"; 
+  $file = str_replace("'","", $file); 
   $param_parts = explode("=", $params); 
   $group_id = $param_parts[1]; 
 
@@ -44,9 +46,9 @@ function build_config($folder, $name, $params, $weight) {
   }
   while(!$list->EOF) { 
 
+    $our_title = str_replace("'", "", strip_tags($list->fields['configuration_title']));
     // Double check no unexpected HTML 
-    if (strip_tags($list->fields['configuration_title']) != 
-      $list->fields['configuration_title'])  {
+    if ($our_title != $list->fields['configuration_title'])  {
       switch ($list->fields['configuration_key']) {
         // We know about these ones and handle them already 
       case 'DOWN_FOR_MAINTENANCE': 
@@ -54,6 +56,11 @@ function build_config($folder, $name, $params, $weight) {
       case 'EMP_LOGIN_ADMIN_ID': 
       case 'EMP_LOGIN_AUTOMATIC':
       case 'EMP_LOGIN_ADMIN_PROFILE_ID': 
+      case 'POSM_OPTIONAL_OPTION_NAMES_LIST': 
+      case 'POSM_OPTIONAL_OPTION_TYPES_LIST': 
+      case 'POSM_ENABLE': 
+      case 'POSM_STOCK_REORDER_LEVEL': 
+      case 'POSM_ATTRIBUTE_IMAGE_SELECTOR':
         break; 
       default: 
        echo "*** Mismatch " . $list->fields['configuration_title'] . "<br />"; 
@@ -62,6 +69,7 @@ function build_config($folder, $name, $params, $weight) {
 
     // Now output
     $title = doc_strip_tags($list->fields['configuration_title']); 
+    $title = str_replace("'","", $title); 
     fix_data($lowername, $list->fields['configuration_title'],  $list->fields['configuration_description']); 
     fwrite($fp, '<h2 id="' . id_smash($title) . '">' . $title . '</h2>' . PHP_EOL . PHP_EOL); 
     $content = get_extra_content($lowername, $list->fields['configuration_title']); 
@@ -153,6 +161,8 @@ function get_header_extra($lowername) {
     $extra = 'Controls the appearance of the Featured Products page. See <a href="/user/template/new_featured_all_listing_page_configuration/">Featured Listing Configuration</a> for instructions on use.'; 
   } elseif ($lowername == "definepagestatus") { 
     $extra = 'See <a href="/user/template/define_pages/">Define Pages</a> for instructions on use.'; 
+  } elseif ($lowername == "optionsstockmanager") { 
+    $extra = 'See <a href="/user/running/posm/">Variant Stock</a> for details and instructions on use.'; 
   }
   return $extra; 
 }
