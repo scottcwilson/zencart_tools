@@ -163,6 +163,8 @@ function get_header_extra($lowername) {
     $extra = 'See <a href="/user/template/define_pages/">Define Pages</a> for instructions on use.'; 
   } elseif ($lowername == "optionsstockmanager") { 
     $extra = 'See <a href="/user/running/posm/">Variant Stock</a> for details and instructions on use.'; 
+  } elseif ($lowername == "productlisting") { 
+    $extra = 'Note that the first group of settings (from Display Product Image to Display Product Weight) can be 0 (meaning do not show) or a positive number, meaning show, using this number as a sort order.'; 
   }
   return $extra; 
 }
